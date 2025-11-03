@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="projects-section">
+  <div class="container">
+    <h1 class="section-title">My Projects</h1>
+
+    {% for project in projects %}
+    <div class="project-item {% if loop.index is even %}right{% else %}left{% endif %}">
+
+      <!-- Project Image -->
+      <div class="project-image">
+        <img src="{{ url_for('static', filename=project.image) }}" alt="{{ project.title }}">
+      </div>
+
+      <!-- Project Content -->
+      <div class="project-content">
+        <h2>{{ project.title }}</h2>
+        <p>{{ project.description }}</p>
+        <a href="{{ project.link }}" class="btn-project" target="_blank">View Project</a>
+      </div>
+
+    </div>
+    {% endfor %}
+
+  </div>
+</section>
+{% endblock %}

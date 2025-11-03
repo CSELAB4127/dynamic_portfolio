@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="hero">
+  <div class="container hero-content">
+    <h1 class="hero-title">
+      Hi, I’m <span class="highlight">Your Name</span>
+    </h1>
+    <p class="hero-subtitle">
+      <span id="typing"></span>
+    </p>
+    <a href="{{ url_for('projects_page') }}" class="cta-btn">View My Work</a>
+  </div>
+</section>
+
+<!-- Typing effect script -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const phrases = ["Web Developer", "Designer", "Tech Enthusiast"];
+  const typingElement = document.getElementById("typing");
+  let phraseIndex = 0;
+  let charIndex = 0;
+  let deleting = false;
+
+  function type() {
+    const currentPhrase = phrases[phraseIndex];
+
+    if (!deleting) {
+      typingElement.textContent = currentPhrase.slice(0, charIndex + 1);
+      charIndex++;
+      if (charIndex === currentPhrase.length) {
+        deleting = true;
+        setTimeout(type, 1000);
+        return;
+      }
+    } else {
+      typingElement.textContent = currentPhrase.slice(0, charIndex - 1);
+      charIndex--;
+      if (charIndex === 0) {
+        deleting = false;
+        phraseIndex = (phraseIndex + 1) % phrases.length;
+      }
+    }
+
+    setTimeout(type, deleting ? 50 : 150);
+  }
+
+  type();
+});
+</script>
+{% endblock %}
